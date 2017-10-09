@@ -1,0 +1,11 @@
+# depslib dependency file v1.0
+1507564710 source:/home/alumno/Documentos/Algoritmos2/Amazonas/main.cpp
+	<iostream>
+	"Tablero.h"
+
+1507566864 source:/home/alumno/Documentos/Algoritmos2/Amazonas/Tablero.cpp
+	"Tablero.h"
+	<iostream>
+
+1507566991 /home/alumno/Documentos/Algoritmos2/Amazonas/Tablero.h
+
