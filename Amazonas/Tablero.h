@@ -1,0 +1,6 @@
+#ifndef TABLERO_H_INCLUDED
+#define TABLERO_H_INCLUDED
+
+
+
+#endif // TABLERO_H_INCLUDED
