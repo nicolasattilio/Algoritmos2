@@ -7,11 +7,22 @@ using namespace std;
 if tablero
 }*/
 
+
+
 int main()
 {
+    char OriX,DesX,FleX;
+    int OriY,DesY,FleY;
+    cin>>OriX;
+    cin>>OriY;
+    cin>>DesX;
+    cin>>DesY;
+    cin>>FleX;
+    cin>>FleY;
     Tablero tablero;
-    //tablero.mostrarTablero(tablero);
-    tablero.moverPieza(tablero,0,3,5,5,5,6);
+    tablero.mostrarTablero(tablero);
+    cout<< tablero.moverPieza(tablero,OriX,OriY,DesX,DesY,FleX,FleY);
     tablero.mostrarTablero(tablero);
     return 0;
 }
+

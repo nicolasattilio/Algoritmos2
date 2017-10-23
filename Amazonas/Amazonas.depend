@@ -9,3 +9,13 @@
 
 1507566991 /home/alumno/Documentos/Algoritmos2/Amazonas/Tablero.h
 
+1508777483 source:/home/alumno/workspace/Algoritmos2/Amazonas/main.cpp
+	<iostream>
+	"Tablero.h"
+
+1508777470 /home/alumno/workspace/Algoritmos2/Amazonas/Tablero.h
+
+1508776448 source:/home/alumno/workspace/Algoritmos2/Amazonas/Tablero.cpp
+	"Tablero.h"
+	<iostream>
+
