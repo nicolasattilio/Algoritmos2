@@ -3,8 +3,10 @@
 class Tablero {
 public:
         Tablero();
-        int moverPieza(Tablero tablero,char origenA,int origenB,char destinoA,int destinoB,char flechaA,int flechaB);
-        void mostrarTablero(Tablero tablero);
+        int moverPieza(char origenA,int origenB,char destinoA,int destinoB,char flechaA,int flechaB);
+        void mostrarTablero();
+        bool sigueJugando();
+        unsigned int verificaEntorno(int origenA, int origenB, char turno);
 
 private:
         char tablero[10][10];

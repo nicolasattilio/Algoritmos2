@@ -1,5 +1,6 @@
 #include "Tablero.h"
 #include <iostream>
+#include <stdlib.h>
 
 using namespace std;
 
@@ -16,19 +17,26 @@ this->tablero[6][0]='R';
 this->tablero[6][9]='R';
 this->tablero[9][3]='R';
 this->tablero[9][6]='R';
+
 }
 
-void Tablero::mostrarTablero(Tablero tablero){
+void Tablero::mostrarTablero(){
+cout<<"    0 1 2 3 4 5 6 7 8 9 "<<endl;
+cout<<"    ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ";
+char Letra='A';
 for (int i=0;i<10;i++){
-    cout<<" "<<endl;
 
+    cout<<" "<<endl;
+cout<<Letra<<" | ";
+    Letra++;
     for (int j=0;j<10;j++)
         cout << this->tablero[i][j] << " ";
         }
 cout<<" "<<endl;
+cout<<" "<<endl;
 }
 
-int Tablero::moverPieza(Tablero tablero,char origenA,int origenB,char destinoA,int destinoB,char flechaA,int flechaB){
+int Tablero::moverPieza(char origenA,int origenB,char destinoA,int destinoB,char flechaA,int flechaB){
     switch (origenA) {
     case 'A':
         origenA=0;
@@ -128,13 +136,66 @@ int Tablero::moverPieza(Tablero tablero,char origenA,int origenB,char destinoA,i
         flechaA=9;
         break;
     }
-this->tablero[destinoA][destinoB]=this->tablero[origenA][origenB];
-this->tablero[origenA][origenB]='-';
-this->tablero[flechaA][flechaB]='X';
+                        //Destino=Origen                                                Destino ocupado                                 flecha ocupada                          Color jugador
+if (((this->tablero[destinoA][destinoB])==(this->tablero[origenA][origenB])) or (this->tablero[destinoA][destinoB]!='-') or (this->tablero[flechaA][flechaB]=='R') or (this->tablero[origenA][origenB]!='A')){
+    cout<<"Movimiento invalido"<<endl;
+    return -1; //costo invalido
+}
+else {                //movimiento horizontal                            movimiento vertical                        movimiento oblicuo
+        if (((origenA==destinoA) and (origenB!=destinoB)) or ((origenA!=destinoA) and (origenB==destinoB)) or(abs(destinoA-origenA)==abs(destinoB-origenB))){
 
-return 3; ///Coste movimiento y desplazamientos nulos
+                for (int x=origenB+1;x<destinoB;x++)
+                    if (this->tablero[origenA][x]!='-'){        //interseccion movimiento derecha
+                        cout<<"entro"<<endl;
+                        return -3;
+                }
+                 for (int x=origenB-1;x>destinoB;x--)
+                    if (this->tablero[origenA][x]!='-'){        //interseccion movimiento izquierda
+                        cout<<"entro"<<endl;
+                        return -3;
+                }
+
+                 for (int x=origenA+1;x<destinoA;x++)
+                    if (this->tablero[x][origenB]!='-'){        //interseccion movimiento abajo
+                        cout<<"entro"<<endl;
+                        return -3;
+
+                }
+                 for (int x=origenA-1;x>destinoA;x--)
+                    if (this->tablero[x][origenB]!='-'){        //interseccion movimiento arriba
+                        cout<<"entro"<<endl;
+                        return -3;
+                }
+
+            this->tablero[destinoA][destinoB]=this->tablero[origenA][origenB];
+            this->tablero[origenA][origenB]='-';
+            this->tablero[flechaA][flechaB]='X';
+        return 3; ///Coste movimiento
+        }
+        else{
+            cout<<"Movimiento invalido segundo tipo"<<endl;
+            return -2;
+        }
+    }
 }
 
+//bool Tablero::sigueJugando(){
+
+
+unsigned int Tablero::verificaEntorno(int origenA, int origenB, char turno){  //bool, agregar int % numero de movimientos disponibles
+    int acum=0;
+    for (int i=origenA-1;i<=origenA+1;i++)
+        for (int j=origenB-1;j<=origenB+1; j++){
+            if (((i>=0) and (i<=9)) and ((j>=0) and (j<=9)))
+                if ((this->tablero[i][j]!=turno /* A o R */ ) and (this->tablero[i][j]!='-')){ ///opciones que aun me dejan mover
+                    acum++; ///acumulo los caminos cerrados
+
+            }
+    }
+
+    return acum;
+
+}
 
 /*int Tablero::AislaReinas(Tablero & tablero){
 

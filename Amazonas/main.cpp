@@ -11,18 +11,29 @@ if tablero
 
 int main()
 {
-    char OriX,DesX,FleX;
-    int OriY,DesY,FleY;
-    cin>>OriX;
-    cin>>OriY;
-    cin>>DesX;
-    cin>>DesY;
-    cin>>FleX;
-    cin>>FleY;
     Tablero tablero;
-    tablero.mostrarTablero(tablero);
-    cout<< tablero.moverPieza(tablero,OriX,OriY,DesX,DesY,FleX,FleY);
-    tablero.mostrarTablero(tablero);
+    tablero.mostrarTablero();
+    int opcion;
+    cout<<"ingrese opcion ";
+    cin>>opcion;
+     while (opcion!=1) {
+        char OriX,DesX,FleX;
+        int OriY,DesY,FleY;
+        cout<<"Ingrese coordenada origen [A-J,0-9]: "<<endl;
+        cin>>OriX;
+        cin>>OriY;
+        cout<<"Ingrese coordenada destino[A-J,0-9]: "<<endl;
+        cin>>DesX;
+        cin>>DesY;
+        cout<<"Ingrese coordenada flecha[A-J,0-9]: "<<endl;
+        cin>>FleX;
+        cin>>FleY;
+        cout<< tablero.moverPieza(OriX,OriY,DesX,DesY,FleX,FleY)<<endl;
+        int a = DesX - 64;
+        cout<<"Elementos adyacentes: "<<tablero.verificaEntorno(a,DesY,'A')<<endl;
+        tablero.mostrarTablero();
+        cin>>opcion;
+    }
     return 0;
 }
 
