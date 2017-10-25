@@ -22,15 +22,15 @@ int main()
         cout<<"Ingrese coordenada origen [A-J,0-9]: "<<endl;
         cin>>OriX;
         cin>>OriY;
-        cout<<"Ingrese coordenada destino[A-J,0-9]: "<<endl;
+        /*cout<<"Ingrese coordenada destino[A-J,0-9]: "<<endl;
         cin>>DesX;
         cin>>DesY;
         cout<<"Ingrese coordenada flecha[A-J,0-9]: "<<endl;
         cin>>FleX;
-        cin>>FleY;
-        cout<< tablero.moverPieza(OriX,OriY,DesX,DesY,FleX,FleY)<<endl;
+        cin>>FleY;*/
+        cout<<tablero.verificaEntorno(OriX,OriY,'A',0)<<endl;
+        //cout<< tablero.moverPieza(OriX,OriY,DesX,DesY,FleX,FleY)<<endl;
         int a = DesX - 64;
-        cout<<"Elementos adyacentes: "<<tablero.verificaEntorno(a,DesY,'A')<<endl;
         tablero.mostrarTablero();
         cin>>opcion;
     }

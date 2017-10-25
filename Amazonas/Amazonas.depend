@@ -30,3 +30,14 @@
 	<iostream>
 	<stdlib.h>
 
+1508959435 source:c:\users\dell\documents\ingeniería de sistemas (uncpba)\2°\analisis y diseño de algoritmos ii\algoritmos2\amazonas\main.cpp
+	<iostream>
+	"Tablero.h"
+
+1508955261 c:\users\dell\documents\ingeniería de sistemas (uncpba)\2°\analisis y diseño de algoritmos ii\algoritmos2\amazonas\tablero.h
+
+1508965602 source:c:\users\dell\documents\ingeniería de sistemas (uncpba)\2°\analisis y diseño de algoritmos ii\algoritmos2\amazonas\tablero.cpp
+	"Tablero.h"
+	<iostream>
+	<stdlib.h>
+

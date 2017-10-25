@@ -6,7 +6,7 @@ public:
         int moverPieza(char origenA,int origenB,char destinoA,int destinoB,char flechaA,int flechaB);
         void mostrarTablero();
         bool sigueJugando();
-        unsigned int verificaEntorno(int origenA, int origenB, char turno);
+        bool verificaEntorno(int origenA, int origenB, char turno,int ady);
 
 private:
         char tablero[10][10];
