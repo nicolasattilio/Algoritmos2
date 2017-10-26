@@ -1,6 +1,7 @@
 #include "Tablero.h"
 #include <iostream>
 #include <stdlib.h>
+#include <limits.h>
 
 using namespace std;
 
@@ -121,7 +122,58 @@ bool Tablero::sigueJugando(char turno){
 
 }
 
- bool Tablero::verificaEntorno(int origenA, int origenB, char turno,int ady){
+/*int Tablero::NegaMax(int depth,int alpha, int beta, char turno,int euristicas){
+    if ((this->sigueJugando(turno)==false) or (depth==0)){
+        return (this->euristicas(euristicas)) /** valorJugador**//*;
+        }
+    else
+        int maxx=INT_MIN;
+        ///Para cada jugada válida V del jugador J en el tablero T  ARMAR UN STRUCT LISTA CON TODOS LOS MOVIMIENTOS POSIBLES
+        if (this->moverPieza(origenA,origenB,destinoA,destinoB,flechaA,flechaB,turno)>0)
+            ///Generar el tablero T' resultante al realizar V
+            ///Asignar valor =-NegaMax(T', depth-1, -beta, -alpha, J.adversario())
+            if (turno=='A')
+                turno='R';
+            else
+                turno='A';
+            valor =-NegaMax(tablero, depth-1,-beta,-alpha,turno);
+            Si (valor > maxx)
+                 maxx = valor;
+            Si (valor > alpha)
+                 alpha = valor;
+            Si (alpha >= beta)
+                return alpha;
+    return alpha;
+}*/
+
+
+
+int Tablero::euristicas(int variable){
+    int debil=0;
+    int ady=0;
+    if (variable=1){
+        int coordx,coordy;
+        for (int i=0;i<=9;i++)
+            for (int j=0;j<=9;j++)
+                if (this->tablero[i][j]=='A'){
+                    if (this->verificaEntorno(i,j,'A',ady)==true){
+                        if (debil<ady){
+                            debil=ady;
+
+                        }
+                    }
+                }
+        return debil;
+        }
+    else
+        for (int i=0;i<=9;i++)
+            for (int j=0;j<=9;j++)
+                if (this->tablero[i][j]=='A')
+                    return ady+1;
+}
+
+
+ bool Tablero::verificaEntorno(int origenA, int origenB, char turno,int & ady){
     if ((origenA>0) and (origenA<9) and (origenB>0) and (origenB<9)){
         for (int i=origenA-1;i<=origenA+1;i++)
             for (int j=origenB-1;j<=origenB+1; j++)

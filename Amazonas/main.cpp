@@ -2,36 +2,8 @@
 #include "Tablero.h"
 #include <limits.h>
 
+
 using namespace std;
-
-int NegaMax(Tablero tablero,int depth,int alpha, int beta, char turno){
-    if ((tablero.sigueJugando(turno)==false)or depth==0){
-        if (turno=='A')
-            int valorJugador=-1;
-        else
-            int valorJugador=1;
-        return /*evaluación_heuristica(T) **/ valorJugador;
-        }
-    else
-        int maxx=INT_MIN;
-        ///Para cada jugada válida V del jugador J en el tablero T  ARMAR UN STRUCT LISTA CON TODOS LOS MOVIMIENTOS POSIBLES
-        if (tablero.moverPieza(origenA,origenB,destinoA,destinoB,flechaA,flechaB,turno)>0)
-            ///Generar el tablero T' resultante al realizar V
-            ///Asignar valor =-NegaMax(T', depth-1, -beta, -alpha, J.adversario())
-            if (turno=='A')
-                turno='R';
-            else
-                turno='A';
-            valor =-NegaMax(tablero, depth-1,-beta,-alpha,turno);
-            Si (valor > maxx)
-                 maxx = valor;
-            Si (valor > alpha)
-                 alpha = valor;
-            Si (alpha >= beta)
-                return alpha;
-    return alpha;
-}
-
 
 
 int main()
@@ -42,17 +14,17 @@ int main()
     int depth;
     int alpha=INT_MIN;
     int beta=INT_MAX;
-    char euristica;
-    cout<<"Ingrese Euristica: ";
-    cin>>euristica;
+    int euristicas;
+    cout<<"Ingrese Euristica[0,1]: ";
+    cin>>euristicas;
     cout<<endl;
-    cout<<"Ingrese Profundidad: ";
+    /*cout<<"Ingrese Profundidad[0,10]: ";
     cin>>depth;
-    cout<<endl;
+    cout<<endl;*/
+    char OriX,DesX,FleX;
+    int origenB,destinoB,flechaB;
+    while (tablero.sigueJugando(turno)==true){
 
-     while (tablero.sigueJugando(turno)==true){
-        char OriX,DesX,FleX;
-        int origenB,destinoB,flechaB;
         cout<<"Ingrese coordenada origen [A-J,0-9]: "<<endl;
         cin>>OriX;
         cin>>origenB;
@@ -65,6 +37,8 @@ int main()
         cin>>FleX;
         cin>>flechaB;
         int flechaA = FleX - 65;
+        //cout<<tablero.NegaMax(depth,alpha,beta,turno,euristicas);
+        cout<<tablero.euristicas(euristicas)<<endl;
         cout<<tablero.moverPieza(origenA,origenB,destinoA,destinoB,flechaA,flechaB,turno)<<endl;
         tablero.mostrarTablero();
         if (turno=='A')
