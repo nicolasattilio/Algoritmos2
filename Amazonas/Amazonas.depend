@@ -41,3 +41,15 @@
 	<iostream>
 	<stdlib.h>
 
+1509024923 source:c:\users\admin\desktop\algoritmos 2\algoritmos2\amazonas\main.cpp
+	<iostream>
+	"Tablero.h"
+	<limits.h>
+
+1509025050 c:\users\admin\desktop\algoritmos 2\algoritmos2\amazonas\tablero.h
+
+1509025281 source:c:\users\admin\desktop\algoritmos 2\algoritmos2\amazonas\tablero.cpp
+	"Tablero.h"
+	<iostream>
+	<stdlib.h>
+

@@ -3,9 +3,9 @@
 class Tablero {
 public:
         Tablero();
-        int moverPieza(char origenA,int origenB,char destinoA,int destinoB,char flechaA,int flechaB);
+        int moverPieza(int origenA,int origenB,int destinoA,int destinoB,int flechaA,int flechaB,char turno);
         void mostrarTablero();
-        bool sigueJugando();
+        bool sigueJugando(char turno);
         bool verificaEntorno(int origenA, int origenB, char turno,int ady);
 
 private:
