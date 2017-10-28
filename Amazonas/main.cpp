@@ -37,15 +37,9 @@ int main()
         cin>>FleX;
         cin>>flechaB;
         int flechaA = FleX - 65;
+        cout<<tablero.movimientoValido(origenA,origenB,destinoA,destinoB,flechaA,flechaB,turno,euristicas)<<endl;
         //cout<<tablero.NegaMax(depth,alpha,beta,turno,euristicas);
-        cout<<tablero.euristicas(euristicas)<<endl;
-        cout<<tablero.moverPieza(origenA,origenB,destinoA,destinoB,flechaA,flechaB,turno)<<endl;
         tablero.mostrarTablero();
-        if (turno=='A')
-            turno='R';
-        else
-            turno='A';
-    }
+        }
     return 0;
 }
-

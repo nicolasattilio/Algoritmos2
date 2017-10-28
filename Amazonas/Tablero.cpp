@@ -37,10 +37,10 @@ cout<<" "<<endl;
 cout<<" "<<endl;
 }
 
-int Tablero::moverPieza(int origenA,int origenB,int destinoA,int destinoB,int flechaA,int flechaB,char turno){
+int Tablero::moverPieza(int origenA,int origenB,int destinoA,int destinoB,int flechaA,int flechaB,char turno,int euristicas){
 if ((origenA>=0) and (origenA<=9) and (origenB>=0) and (origenB<=9) and (destinoA>=0) and (destinoA<=9) and (destinoB>=0) and (destinoB<=9) and (flechaA>=0) and (flechaA<=9) and (flechaB>=0) and (flechaB<=9)){
                    //Destino=Origen                                                Destino ocupado                                 flecha ocupada                          Color jugador
-    if (((this->tablero[destinoA][destinoB])==(this->tablero[origenA][origenB])) or (this->tablero[destinoA][destinoB]!='-') or (this->tablero[flechaA][flechaB]==turno) or (this->tablero[origenA][origenB]!=turno)){
+    if (((this->tablero[destinoA][destinoB])==(this->tablero[origenA][origenB])) or (this->tablero[destinoA][destinoB]!='-') or (this->tablero[flechaA][flechaB]==turno) or (this->tablero[origenA][origenB]!='A')){
         cout<<"Movimiento invalido"<<endl;
         return -1; //costo invalido
     }
@@ -48,64 +48,43 @@ if ((origenA>=0) and (origenA<=9) and (origenB>=0) and (origenB<=9) and (destino
             if (((origenA==destinoA) and (origenB!=destinoB)) or ((origenA!=destinoA) and (origenB==destinoB)) or(abs(destinoA-origenA)==abs(destinoB-origenB))){
                     if (((flechaA==destinoA) and (flechaB!=destinoB)) or ((flechaA!=destinoA) and (flechaB==destinoB)) or(abs(destinoA-flechaA)==abs(destinoB-flechaB))){
                     for (int x=origenB+1;x<destinoB;x++)
-                        if (this->tablero[origenA][x]!='-'){        //interseccion movimiento derecha
-                            cout<<"entro"<<endl;
+                        if (this->tablero[origenA][x]!='-')        //interseccion movimiento derecha
                             return -3;
-                    }
                      for (int x=origenB-1;x>destinoB;x--)
-                        if (this->tablero[origenA][x]!='-'){        //interseccion movimiento izquierda
-                            cout<<"entro"<<endl;
+                        if (this->tablero[origenA][x]!='-')        //interseccion movimiento izquierda
                             return -3;
-                    }
-
                      for (int x=origenA+1;x<destinoA;x++)
-                        if (this->tablero[x][origenB]!='-'){        //interseccion movimiento abajo
-                            cout<<"entro"<<endl;
+                        if (this->tablero[x][origenB]!='-')       //interseccion movimiento abajo
                             return -3;
-
-                    }
                      for (int x=origenA-1;x>destinoA;x--)
-                        if (this->tablero[x][origenB]!='-'){        //interseccion movimiento arriba
-                            cout<<"entro"<<endl;
+                        if (this->tablero[x][origenB]!='-')        //interseccion movimiento arriba
                             return -3;
-                    }
-
                      for (int x=destinoB+1;x<flechaB;x++)
-                        if (this->tablero[destinoA][x]!='-'){        //interseccion movimiento derecha
-                            cout<<"entro"<<endl;
+                        if (this->tablero[destinoA][x]!='-')       //interseccion movimiento derecha
                             return -3;
-                    }
                      for (int x=destinoB-1;x>flechaB;x--)
-                        if (this->tablero[destinoA][x]!='-'){        //interseccion movimiento izquierda
-                            cout<<"entro"<<endl;
+                        if (this->tablero[destinoA][x]!='-')        //interseccion movimiento izquierda
                             return -3;
-                    }
                     for (int x=destinoA+1;x<flechaA;x++)
-                        if (this->tablero[x][destinoB]!='-'){        //interseccion movimiento abajo
-                            cout<<"entro"<<endl;
+                        if (this->tablero[x][destinoB]!='-')        //interseccion movimiento abajo
                             return -3;
-                    }
                      for (int x=destinoA-1;x>flechaA;x--)
-                        if (this->tablero[x][destinoB]!='-'){        //interseccion movimiento arriba
-                            cout<<"entro"<<endl;
+                        if (this->tablero[x][destinoB]!='-')       //interseccion movimiento arriba
                             return -3;
-                    }
 
-                this->tablero[destinoA][destinoB]=this->tablero[origenA][origenB];
-                this->tablero[origenA][origenB]='-';
-                this->tablero[flechaA][flechaB]='X';
-            return 3; ///Coste movimiento
+            return this->euristicas(euristicas); ///
             }
-            else return -2;
-            }
-            else{
-                cout<<"Movimiento invalido segundo tipo"<<endl;
+            else
                 return -2;
             }
+        else{
+            cout<<"Movimiento invalido "<<endl;
+            return -2;
+            }
         }
-        }
+    }
     else
-        return 0;
+        return -1;
 }
 
 bool Tablero::sigueJugando(char turno){
@@ -123,8 +102,13 @@ bool Tablero::sigueJugando(char turno){
 }
 
 /*int Tablero::NegaMax(int depth,int alpha, int beta, char turno,int euristicas){
+    int valorJugador;
     if ((this->sigueJugando(turno)==false) or (depth==0)){
-        return (this->euristicas(euristicas)) /** valorJugador**//*;
+        if (turno=='A')
+            valorJugador=-1;
+        else
+            valorJugador=1;
+        return (this->euristicas(euristicas)) * valorJugador;
         }
     else
         int maxx=INT_MIN;
@@ -146,6 +130,14 @@ bool Tablero::sigueJugando(char turno){
     return alpha;
 }*/
 
+int Tablero::movimientoValido(int origenA,int origenB,int destinoA,int destinoB,int flechaA,int flechaB,char turno,int euristicas){
+    if (this->moverPieza(origenA,origenB,destinoA,destinoB,flechaA,flechaB,turno,euristicas)>=0){
+        this->tablero[destinoA][destinoB]=this->tablero[origenA][origenB];
+        this->tablero[origenA][origenB]='-';
+        this->tablero[flechaA][flechaB]='X';
+        return 1;
+}
+}
 
 
 int Tablero::euristicas(int variable){
@@ -277,9 +269,3 @@ int Tablero::euristicas(int variable){
 
 
 }
-
-/*int Tablero::AislaReinas(Tablero & tablero){
-
-
-}
-*/
