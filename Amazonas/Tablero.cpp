@@ -50,19 +50,19 @@ if ((origenA>=0) and (origenA<=9) and (origenB>=0) and (origenB<=9) and (destino
                     for (int x=origenB+1;x<destinoB;x++)
                         if (this->tablero[origenA][x]!='-')        //interseccion movimiento derecha
                             return -3;
-                     for (int x=origenB-1;x>destinoB;x--)
+                    for (int x=origenB-1;x>destinoB;x--)
                         if (this->tablero[origenA][x]!='-')        //interseccion movimiento izquierda
                             return -3;
-                     for (int x=origenA+1;x<destinoA;x++)
+                    for (int x=origenA+1;x<destinoA;x++)
                         if (this->tablero[x][origenB]!='-')       //interseccion movimiento abajo
                             return -3;
-                     for (int x=origenA-1;x>destinoA;x--)
+                    for (int x=origenA-1;x>destinoA;x--)
                         if (this->tablero[x][origenB]!='-')        //interseccion movimiento arriba
                             return -3;
-                     for (int x=destinoB+1;x<flechaB;x++)
+                    for (int x=destinoB+1;x<flechaB;x++)
                         if (this->tablero[destinoA][x]!='-')       //interseccion movimiento derecha
                             return -3;
-                     for (int x=destinoB-1;x>flechaB;x--)
+                    for (int x=destinoB-1;x>flechaB;x--)
                         if (this->tablero[destinoA][x]!='-')        //interseccion movimiento izquierda
                             return -3;
                     for (int x=destinoA+1;x<flechaA;x++)
@@ -101,7 +101,7 @@ bool Tablero::sigueJugando(char turno){
 
 }
 
-/*int Tablero::NegaMax(int depth,int alpha, int beta, char turno,int euristicas){
+/*int Tablero::negaMax(int depth,int alpha, int beta, char turno,int euristicas){
     int valorJugador;
     if ((this->sigueJugando(turno)==false) or (depth==0)){
         if (turno=='A')
@@ -112,15 +112,14 @@ bool Tablero::sigueJugando(char turno){
         }
     else
         int maxx=INT_MIN;
-        ///Para cada jugada válida V del jugador J en el tablero T  ARMAR UN STRUCT LISTA CON TODOS LOS MOVIMIENTOS POSIBLES
+        for()///Para cada jugada válida V del jugador J en el tablero T  ARMAR UN STRUCT LISTA CON TODOS LOS MOVIMIENTOS POSIBLES
         if (this->moverPieza(origenA,origenB,destinoA,destinoB,flechaA,flechaB,turno)>0)
             ///Generar el tablero T' resultante al realizar V
-            ///Asignar valor =-NegaMax(T', depth-1, -beta, -alpha, J.adversario())
             if (turno=='A')
                 turno='R';
             else
                 turno='A';
-            valor =-NegaMax(tablero, depth-1,-beta,-alpha,turno);
+            valor =-negaMax(tablero, depth-1,-beta,-alpha,turno);
             Si (valor > maxx)
                  maxx = valor;
             Si (valor > alpha)
@@ -130,13 +129,18 @@ bool Tablero::sigueJugando(char turno){
     return alpha;
 }*/
 
-int Tablero::movimientoValido(int origenA,int origenB,int destinoA,int destinoB,int flechaA,int flechaB,char turno,int euristicas){
+void Tablero::movimientoValido(int origenA,int origenB,int destinoA,int destinoB,int flechaA,int flechaB,char turno,int euristicas){
     if (this->moverPieza(origenA,origenB,destinoA,destinoB,flechaA,flechaB,turno,euristicas)>=0){
         this->tablero[destinoA][destinoB]=this->tablero[origenA][origenB];
         this->tablero[origenA][origenB]='-';
         this->tablero[flechaA][flechaB]='X';
-        return 1;
 }
+}
+
+void Tablero::deshacerUltimoMovimiento(int origenA,int origenB,int destinoA,int destinoB,int flechaA,int flechaB){
+        this->tablero[flechaA][flechaB]='-';
+        this->tablero[origenA][origenB]=this->tablero[destinoA][destinoB];
+        this->tablero[destinoA][destinoB]='-';
 }
 
 
