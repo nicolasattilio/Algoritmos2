@@ -37,11 +37,10 @@ cout<<" "<<endl;
 cout<<" "<<endl;
 }
 
-int Tablero::moverPieza(int origenA,int origenB,int destinoA,int destinoB,int flechaA,int flechaB,char turno,int euristicas){
+int Tablero::moverPieza(int origenA,int origenB,int destinoA,int destinoB,int flechaA,int flechaB,char turno,int heuristicas){
 if ((origenA>=0) and (origenA<=9) and (origenB>=0) and (origenB<=9) and (destinoA>=0) and (destinoA<=9) and (destinoB>=0) and (destinoB<=9) and (flechaA>=0) and (flechaA<=9) and (flechaB>=0) and (flechaB<=9)){
                    //Destino=Origen                                                Destino ocupado                                 flecha ocupada                          Color jugador
     if (((this->tablero[destinoA][destinoB])==(this->tablero[origenA][origenB])) or (this->tablero[destinoA][destinoB]!='-') or (this->tablero[flechaA][flechaB]==turno) or (this->tablero[origenA][origenB]!='A')){
-        cout<<"Movimiento invalido"<<endl;
         return -1; //costo invalido
     }
     else {                //movimiento horizontal                            movimiento vertical                        movimiento oblicuo
@@ -72,13 +71,12 @@ if ((origenA>=0) and (origenA<=9) and (origenB>=0) and (origenB<=9) and (destino
                         if (this->tablero[x][destinoB]!='-')       //interseccion movimiento arriba
                             return -3;
 
-            return this->euristicas(euristicas); ///
+            return this->heuristicas(heuristicas); ///
             }
             else
                 return -2;
             }
         else{
-            cout<<"Movimiento invalido "<<endl;
             return -2;
             }
         }
@@ -101,14 +99,14 @@ bool Tablero::sigueJugando(char turno){
 
 }
 
-/*int Tablero::negaMax(int depth,int alpha, int beta, char turno,int euristicas){
+/*int Tablero::negaMax(int depth,int alpha, int beta, char turno,int heuristicas){
     int valorJugador;
     if ((this->sigueJugando(turno)==false) or (depth==0)){
         if (turno=='A')
             valorJugador=-1;
         else
             valorJugador=1;
-        return (this->euristicas(euristicas)) * valorJugador;
+        return (this->heuristicas(heuristicas)) * valorJugador;
         }
     else
         int maxx=INT_MIN;
@@ -129,12 +127,14 @@ bool Tablero::sigueJugando(char turno){
     return alpha;
 }*/
 
-void Tablero::movimientoValido(int origenA,int origenB,int destinoA,int destinoB,int flechaA,int flechaB,char turno,int euristicas){
-    if (this->moverPieza(origenA,origenB,destinoA,destinoB,flechaA,flechaB,turno,euristicas)>=0){
+void Tablero::movimientoValido(int origenA,int origenB,int destinoA,int destinoB,int flechaA,int flechaB,char turno,int heuristicas){
+    if (this->moverPieza(origenA,origenB,destinoA,destinoB,flechaA,flechaB,turno,heuristicas)>=0){
         this->tablero[destinoA][destinoB]=this->tablero[origenA][origenB];
         this->tablero[origenA][origenB]='-';
         this->tablero[flechaA][flechaB]='X';
 }
+    else
+        cout<<"Movimiento invalido"<<endl;
 }
 
 void Tablero::deshacerUltimoMovimiento(int origenA,int origenB,int destinoA,int destinoB,int flechaA,int flechaB){
@@ -144,7 +144,7 @@ void Tablero::deshacerUltimoMovimiento(int origenA,int origenB,int destinoA,int 
 }
 
 
-int Tablero::euristicas(int variable){
+int Tablero::heuristicas(int variable){
     int debil=0;
     int ady=0;
     if (variable=1){

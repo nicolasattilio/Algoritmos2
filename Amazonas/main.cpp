@@ -14,13 +14,13 @@ int main()
     int depth;
     int alpha=INT_MIN;
     int beta=INT_MAX;
-    int euristicas;
-    cout<<"Ingrese Euristica[0,1]: ";
-    cin>>euristicas;
+    int heuristicas;
+    cout<<"Ingrese heuristica[0,1]: ";
+    cin>>heuristicas;
     cout<<endl;
-    /*cout<<"Ingrese Profundidad[0,10]: ";
+    cout<<"Ingrese Profundidad[0,10]: ";
     cin>>depth;
-    cout<<endl;*/
+    cout<<endl;
     char OriX,DesX,FleX;
     int origenB,destinoB,flechaB;
     while (tablero.sigueJugando(turno)==true){
@@ -37,8 +37,8 @@ int main()
         cin>>FleX;
         cin>>flechaB;
         int flechaA = FleX - 65;
-        tablero.movimientoValido(origenA,origenB,destinoA,destinoB,flechaA,flechaB,turno,euristicas);
-        //cout<<tablero.negaMax(depth,alpha,beta,turno,euristicas);
+        tablero.movimientoValido(origenA,origenB,destinoA,destinoB,flechaA,flechaB,turno,heuristicas);
+        //cout<<tablero.negaMax(depth,alpha,beta,turno,heuristicas);
         tablero.mostrarTablero();
         }
     return 0;
