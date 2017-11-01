@@ -65,24 +65,3 @@ int main() {
         cout<<"Perdiste, suerte para la proxima!!"<<endl;
     return 0;
 }
-
-
-
-/*if (tablero.moverPieza(origenA,origenB,destinoA,destinoB,flechaA,flechaB,'A')) {
-            system("cls");
-            tablero.movimientoValido(origenA,origenB,destinoA,destinoB,flechaA,flechaB,'A');
-            tablero.mostrarTablero();
-            cout<<"Puntaje: "<<tablero.negaMax(depth,alpha,beta,'R',heuristicas,movimiento,tamanio)<<endl;
-            tablero.movimientoValido(movimiento.origenA,movimiento.origenB,movimiento.destinoA,movimiento.destinoB,movimiento.flechaA,movimiento.flechaB,'R');
-            cout<<"Cantidad de estados: "<<tamanio<<endl;
-            /*char rivalOrigenA=movimiento.origenA+65;
-            char rivalDestinoA=movimiento.destinoA+65;
-            char rivalFlechaA=movimiento.flechaA+65;
-            cout<<"Movimiento Rival "<<rivalOrigenA<<movimiento.origenB<<" "<<rivalDestinoA<<movimiento.origenB<<" "<<rivalFlechaA<<movimiento.flechaA<<endl;
-
-        } else {
-            system("cls");
-            tablero.mostrarTablero();
-            cout<<"Reintente coordenadas"<<endl;
-        }
-    }*/
