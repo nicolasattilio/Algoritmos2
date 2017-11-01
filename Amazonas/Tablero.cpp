@@ -19,7 +19,6 @@ Tablero::Tablero() {
     this->tablero[9][3]='R';
     this->tablero[9][6]='R';
 
-
     arregloAzul[0]=make_pair(0,3);
     arregloAzul[1]=make_pair(0,6);
     arregloAzul[2]=make_pair(3,0);
@@ -94,18 +93,18 @@ bool Tablero::moverPieza(int origenA,int origenB,int destinoA,int destinoB,int f
         return false;
 }
 
-bool Tablero::sigueJugando(char turno){
+bool Tablero::sigueJugando(char turno) {
     int ady=0;
     bool valor=true;
-    for (int i=0;i<=9;i++)
-        for (int j=0;j<=9;j++)
-            if (this->tablero[i][j]==turno){
+    for (int i=0; i<=9; i++)
+        for (int j=0; j<=9; j++)
+            if (this->tablero[i][j]==turno) {
                 if (verificaEntorno(i,j,turno,ady)==true)
                     return true;
-                else{
+                else {
                     ady=0;
                     valor=false;
-                    }
+                }
             }
     return valor;
 }
@@ -256,7 +255,7 @@ void Tablero::moverflecha(int x,int y,estado aux,list<estado>& movimientos) {
     }
 }
 
-int Tablero::negaMax(int depth,int alpha, int beta, char turno,int tipoHeuristica,estado & movimiento) {
+int Tablero::negaMax(int depth,int alpha, int beta, char turno,int tipoHeuristica,estado & movimiento,int & tamanio) {
     int valorJugador;
     if ((!this->sigueJugando(turno)) or (depth==0)) {
         if (turno=='A')
@@ -269,7 +268,7 @@ int Tablero::negaMax(int depth,int alpha, int beta, char turno,int tipoHeuristic
         list <estado> movimientos;
         this->generarMovimientosValidos(turno,movimientos);
         list <estado>:: iterator it=movimientos.begin();
-        cout<<"Cantidad de estados: "<<movimientos.size()<<endl;
+        tamanio=movimientos.size();
         estado contrario;
         while(it!=movimientos.end()) {
             this->movimientoValido(it->origenA,it->origenB,it->destinoA,it->destinoB,it->flechaA,it->flechaB,turno);
@@ -277,7 +276,7 @@ int Tablero::negaMax(int depth,int alpha, int beta, char turno,int tipoHeuristic
                 turno='R';
             else
                 turno='A';
-            int valor =-(negaMax(depth-1,-beta,-alpha,turno,tipoHeuristica,contrario));
+            int valor =-(negaMax(depth-1,-beta,-alpha,turno,tipoHeuristica,contrario,tamanio));
             if (turno=='A')
                 turno='R';
             else
@@ -299,13 +298,13 @@ int Tablero::negaMax(int depth,int alpha, int beta, char turno,int tipoHeuristic
 
 void Tablero::movimientoValido(int origenA,int origenB,int destinoA,int destinoB,int flechaA,int flechaB,char turno) {
     int i=0;
-    if ((this->moverPieza(origenA,origenB,destinoA,destinoB,flechaA,flechaB,turno))){
+    if ((this->moverPieza(origenA,origenB,destinoA,destinoB,flechaA,flechaB,turno))) {
         this->tablero[destinoA][destinoB]=turno;
         this->tablero[origenA][origenB]='-';
         this->tablero[flechaA][flechaB]='X';
         std::pair<int,int> pares;
         pares=make_pair(origenA,origenB);
-        if (turno=='A'){
+        if (turno=='A') {
             while ((i<=3) and (pares!=arregloAzul[i]))
                 i++;
             arregloAzul[i]=make_pair(destinoA,destinoB);
@@ -350,51 +349,51 @@ int Tablero::heuristicas(int variable) {
                     }
                 }
         return debil;
-    } if (variable==0)
+    }
+    if (variable==0)
         for (int i=0; i<=9; i++)
             for (int j=0; j<=9; j++)
                 if (this->tablero[i][j]=='A')
                     return ady+1;
 }
 
- bool Tablero::verificaEntorno(int origenA, int origenB, char turno,int & ady){
-    if ((origenA>0) and (origenA<9) and (origenB>0) and (origenB<9)){
-        for (int i=origenA-1;i<=origenA+1;i++)
-            for (int j=origenB-1;j<=origenB+1; j++)
-                    if ((this->tablero[i][j]!=turno /* A o R */ ) and (this->tablero[i][j]!='-')) ///opciones que aun me dejan mover
-                        ady++; ///acumulo los caminos cerrados
-    if (ady==8)
-        return false;
-    else
-        return true;
-    }
-    else{
-        if (origenA==0){
-            if (origenB==0){
-                for (int i=origenA;i<=origenA+1;i++)
-                    for (int j=origenB;j<=origenB+1; j++)
+bool Tablero::verificaEntorno(int origenA, int origenB, char turno,int & ady) {
+    if ((origenA>0) and (origenA<9) and (origenB>0) and (origenB<9)) {
+        for (int i=origenA-1; i<=origenA+1; i++)
+            for (int j=origenB-1; j<=origenB+1; j++)
+                if ((this->tablero[i][j]!=turno /* A o R */ ) and (this->tablero[i][j]!='-')) ///opciones que aun me dejan mover
+                    ady++; ///acumulo los caminos cerrados
+        if (ady==8)
+            return false;
+        else
+            return true;
+    } else {
+        if (origenA==0) {
+            if (origenB==0) {
+                for (int i=origenA; i<=origenA+1; i++)
+                    for (int j=origenB; j<=origenB+1; j++)
                         if ((this->tablero[i][j]!=turno /* A o R */ ) and (this->tablero[i][j]!='-'))
-                         ady++;
-            if (ady==3)
-                return false;
-            else
-                return true;
+                            ady++;
+                if (ady==3)
+                    return false;
+                else
+                    return true;
             }
-            if (origenB==9){
-                for (int i=origenA;i<=origenA+1;i++)
-                    for (int j=origenB-1;j<=origenB; j++)
+            if (origenB==9) {
+                for (int i=origenA; i<=origenA+1; i++)
+                    for (int j=origenB-1; j<=origenB; j++)
                         if ((this->tablero[i][j]!=turno /* A o R */ ) and (this->tablero[i][j]!='-'))
-                         ady++;
-            if (ady==3)
-                return false;
-            else
-                return true;
+                            ady++;
+                if (ady==3)
+                    return false;
+                else
+                    return true;
             }
-            if (origenB>0 and origenB<9){
-                for (int i=origenA;i<=origenA+1;i++)
-                    for (int j=origenB-1;j<=origenB+1; j++)
+            if (origenB>0 and origenB<9) {
+                for (int i=origenA; i<=origenA+1; i++)
+                    for (int j=origenB-1; j<=origenB+1; j++)
                         if ((this->tablero[i][j]!=turno /* A o R */ ) and (this->tablero[i][j]!='-'))
-                         ady++;
+                            ady++;
                 if (ady==5)
                     return false;
                 else
@@ -402,59 +401,59 @@ int Tablero::heuristicas(int variable) {
             }
         }
 
-        if (origenA==9){
-            if (origenB==0){
-                for (int i=origenA-1;i<=origenA;i++)
-                    for (int j=origenB;j<=origenB+1; j++)
+        if (origenA==9) {
+            if (origenB==0) {
+                for (int i=origenA-1; i<=origenA; i++)
+                    for (int j=origenB; j<=origenB+1; j++)
                         if ((this->tablero[i][j]!=turno /* A o R */ ) and (this->tablero[i][j]!='-'))
-                         ady++;
-            if (ady==3)
-                return false;
-            else
-                return true;
+                            ady++;
+                if (ady==3)
+                    return false;
+                else
+                    return true;
             }
-            if (origenB==9){
-                 for (int i=origenA-1;i<=origenA;i++)
-                    for (int j=origenB-1;j<=origenB; j++)
+            if (origenB==9) {
+                for (int i=origenA-1; i<=origenA; i++)
+                    for (int j=origenB-1; j<=origenB; j++)
                         if ((this->tablero[i][j]!=turno /* A o R */ ) and (this->tablero[i][j]!='-'))
-                         ady++;
-            if (ady==3)
-                return false;
-            else
-                return true;
+                            ady++;
+                if (ady==3)
+                    return false;
+                else
+                    return true;
             }
-            if (origenB>0 and origenB<9){
-                 for (int i=origenA-1;i<=origenA;i++)
-                    for (int j=origenB-1;j<=origenB+1; j++)
+            if (origenB>0 and origenB<9) {
+                for (int i=origenA-1; i<=origenA; i++)
+                    for (int j=origenB-1; j<=origenB+1; j++)
                         if ((this->tablero[i][j]!=turno /* A o R */ ) and (this->tablero[i][j]!='-'))
-                         ady++;
-            if (ady==5)
-                return false;
-            else
-                return true;
+                            ady++;
+                if (ady==5)
+                    return false;
+                else
+                    return true;
             }
 
         }
-        if (origenA>0 and origenA<9){
-            if (origenB==0){
-                for (int i=origenA-1;i<=origenA+1;i++)
-                    for (int j=origenB;j<=origenB+1; j++)
+        if (origenA>0 and origenA<9) {
+            if (origenB==0) {
+                for (int i=origenA-1; i<=origenA+1; i++)
+                    for (int j=origenB; j<=origenB+1; j++)
                         if ((this->tablero[i][j]!=turno /* A o R */ ) and (this->tablero[i][j]!='-'))
-                         ady++;
-            if (ady==5)
-                return false;
-            else
-                return true;
+                            ady++;
+                if (ady==5)
+                    return false;
+                else
+                    return true;
             }
-            if (origenB==9){
-                for (int i=origenA-1;i<=origenA+1;i++)
-                    for (int j=origenB-1;j<=origenB; j++)
-                    if ((this->tablero[i][j]!=turno /* A o R */ ) and (this->tablero[i][j]!='-'))
-                         ady++;
-            if (ady==5)
-                return false;
-            else
-                return true;
+            if (origenB==9) {
+                for (int i=origenA-1; i<=origenA+1; i++)
+                    for (int j=origenB-1; j<=origenB; j++)
+                        if ((this->tablero[i][j]!=turno /* A o R */ ) and (this->tablero[i][j]!='-'))
+                            ady++;
+                if (ady==5)
+                    return false;
+                else
+                    return true;
             }
         }
     }

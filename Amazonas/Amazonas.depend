@@ -19,15 +19,16 @@
 	"Tablero.h"
 	<iostream>
 
-1509563777 source:c:\users\nico\desktop\facultad\trabajo algortimos 2\algoritmos2\amazonas\main.cpp
+1509576535 source:c:\users\nico\desktop\facultad\trabajo algortimos 2\algoritmos2\amazonas\main.cpp
 	<iostream>
 	"Tablero.h"
 	<limits.h>
+	<stdlib.h>
 
-1509560644 c:\users\nico\desktop\facultad\trabajo algortimos 2\algoritmos2\amazonas\tablero.h
+1509574703 c:\users\nico\desktop\facultad\trabajo algortimos 2\algoritmos2\amazonas\tablero.h
 	<list>
 
-1509564559 source:c:\users\nico\desktop\facultad\trabajo algortimos 2\algoritmos2\amazonas\tablero.cpp
+1509576578 source:c:\users\nico\desktop\facultad\trabajo algortimos 2\algoritmos2\amazonas\tablero.cpp
 	"Tablero.h"
 	<iostream>
 	<stdlib.h>

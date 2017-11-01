@@ -20,7 +20,7 @@ public:
     bool sigueJugando(char turno);
     void generarMovimientosValidos(char turno,list<estado>& movimientos);
     void moverflecha(int x,int y,estado aux,list<estado>& movimientos);
-    int negaMax(int depth,int alpha, int beta, char turno,int tipoHeuristica,estado & movimiento);
+    int negaMax(int depth,int alpha, int beta, char turno,int tipoHeuristica,estado & movimiento,int & tamanio);
     void movimientoValido(int origenA,int origenB,int destinoA,int destinoB,int flechaA,int flechaB,char turno);
     void deshacerUltimoMovimiento(int origenA,int origenB,int destinoA,int destinoB,int flechaA,int flechaB,char turno);
     int heuristicas(int variable);
